@@ -128,6 +128,7 @@ getRecipesAW().then(result => console.log(`${result} is the best ever!`));
 /**
  * Making AJAX Calls with Fetch and Promises 
  */
+/*
 function getWeather(woeid) {
     fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${woeid}/`)
         .then(result => {
@@ -141,3 +142,27 @@ function getWeather(woeid) {
 }
 getWeather(2487956);
 getWeather(44418);
+*/
+
+/**
+ * Making AJAX calls with Fetch and Async/Await
+ */
+
+async function getWeatherAW(woeid) {
+    try {
+        const result = await fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${woeid}/`);
+        const data = await result.json();
+        const tomorrow = data.consolidated_weather[1];
+        console.log(`Temperature in ${data.title} is between ${tomorrow.min_temp} and ${tomorrow.max_temp}.`);
+        return data;
+    } catch (error) {
+        alert(error);
+    }
+
+}
+getWeatherAW(2487956);
+let dataLondon;
+getWeatherAW(44418).then(data => {
+    dataLondon = data;
+    console.log(dataLondon);
+});
