@@ -86,6 +86,7 @@ getIDs.then(IDs => {
 /**
  * From Promises to Async/Await
  */
+/*
 
 const getIDs = new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -122,3 +123,21 @@ async function getRecipesAW() {
     return recipe;
 }
 getRecipesAW().then(result => console.log(`${result} is the best ever!`));
+*/
+
+/**
+ * Making AJAX Calls with Fetch and Promises 
+ */
+function getWeather(woeid) {
+    fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${woeid}/`)
+        .then(result => {
+            console.log(result);
+            return result.json();
+        }).then(data => {
+            //console.log(data);
+            const today = data.consolidated_weather[0];
+            console.log(`Temperature in ${data.title} is between ${today.min_temp} and ${today.max_temp}.`);
+        }).catch(error => console.log(error));
+}
+getWeather(2487956);
+getWeather(44418);
